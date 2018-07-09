@@ -1,19 +1,20 @@
-package io.github.komdosh.alarms;
+package io.github.komdosh.alarms.services.impl;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
+import io.github.komdosh.alarms.services.AlarmService;
 
 import javax.swing.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-public class Alarms {
-    private static boolean isEnabled = false;
-    private static Thread executionTimeoutLoop;
-    private static Logger logger = Logger.getLogger(Alarms.class.getName());
+public class AlarmServiceImpl implements AlarmService {
+    private boolean isEnabled = false;
+    private Thread executionTimeoutLoop;
+    private Logger logger = Logger.getLogger(AlarmService.class.getName());
 
-    public static void setAlertInSeconds(Project p, long delay, String dimension) {
+    public void setAlertInSeconds(Project p, long delay, String dimension) {
         long delayNumberForText;
         if (dimension.equalsIgnoreCase("minutes")) {
             delayNumberForText = TimeUnit.SECONDS.toMinutes(delay);
@@ -31,7 +32,7 @@ public class Alarms {
             "Time to Relax", Messages.getInformationIcon()), delay);
     }
 
-    private static void setTimeout(Runnable s, long delay) {
+    private void setTimeout(Runnable s, long delay) {
         if (!isEnabled) {
             return;
         }
@@ -43,7 +44,7 @@ public class Alarms {
         executionTimeoutLoop.start();
     }
 
-    private static void setExecution(Runnable s, long delay) {
+    private void setExecution(Runnable s, long delay) {
         try {
             Thread.sleep(TimeUnit.SECONDS.toMillis(delay));
             SwingUtilities.invokeAndWait(s);
@@ -55,7 +56,7 @@ public class Alarms {
         }
     }
 
-    public static void disableAlerts() {
+    public void disableAlerts() {
         isEnabled = false;
         executionTimeoutLoop.interrupt();
     }

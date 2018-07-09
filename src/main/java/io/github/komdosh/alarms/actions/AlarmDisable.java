@@ -2,7 +2,8 @@ package io.github.komdosh.alarms.actions;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import io.github.komdosh.alarms.Alarms;
+import com.intellij.openapi.components.ServiceManager;
+import io.github.komdosh.alarms.services.AlarmService;
 
 public class AlarmDisable extends AnAction {
 
@@ -11,6 +12,7 @@ public class AlarmDisable extends AnAction {
     }
 
     public void actionPerformed(AnActionEvent event) {
-        Alarms.disableAlerts();
+        AlarmService alarmService = ServiceManager.getService(AlarmService.class);
+        alarmService.disableAlerts();
     }
 }

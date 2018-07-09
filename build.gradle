@@ -2,7 +2,7 @@ plugins {
     id 'org.jetbrains.intellij' version '0.3.4'
 }
 
-group 'fileTime'
+group 'alarms'
 version '0.0.1'
 
 apply plugin: 'java'
