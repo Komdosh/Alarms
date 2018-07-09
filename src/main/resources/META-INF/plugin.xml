@@ -1,0 +1,35 @@
+<idea-plugin>
+    <id>alarms.io.github.komdosh</id>
+    <name>Scheduled Alarm</name>
+    <vendor email="komdosh@yandex.ru" url="http://komdosh.github.io">Komdosh</vendor>
+
+    <description><![CDATA[
+    Simple scheduled alarm
+    ]]></description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <group id="MyPlugin.SampleMenu" text="Alarms" description="Set alarm schedule">
+            <add-to-group group-id="MainMenu" anchor="last"/>
+            <action id="10Sec" class="io.github.komdosh.alarms.actions.Alarm10Sec"
+                    text="Set for 10 sec" description="Set alarm for every 10 sec"/>
+            <action id="10Min" class="io.github.komdosh.alarms.actions.Alarm10Min"
+                    text="Set for 10 min" description="Set alarm for every 10 min"/>
+            <action id="20Min" class="io.github.komdosh.alarms.actions.Alarm20Min"
+                    text="Set for 20 min" description="Set alarm for every 20 min"/>
+            <action id="CustomMin" class="io.github.komdosh.alarms.actions.AlarmCustomMin"
+                    text="Set custom" description="Set alarm for custom number of minutes"/>
+            <action id="Disable" class="io.github.komdosh.alarms.actions.AlarmDisable"
+                    text="Disable Alarm" description="Disable Alarm"/>
+        </group>
+    </actions>
+</idea-plugin>
