@@ -1,27 +1,32 @@
-plugins {
-    id 'org.jetbrains.intellij' version '0.3.4'
+buildscript {
+    ext.kotlin_version = '1.2.51-release-IJ2018.1-1'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
 }
 
-group 'alarms'
+plugins {
+    id 'org.jetbrains.intellij' version '0.3.4'
+    id "org.jetbrains.kotlin.jvm" version "1.2.51"
+}
+
+group 'io.github.komdosh'
 version '0.0.1'
 
 apply plugin: 'java'
+apply plugin: 'kotlin'
 
 sourceCompatibility = 1.8
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-}
-
 intellij {
     version '2018.1'
+    pluginName 'Scheduled Alarm'
 }
 patchPluginXml {
-    changeNotes """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
+    changeNotes """no changes"""
 }
