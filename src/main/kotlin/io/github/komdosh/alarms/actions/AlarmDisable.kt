@@ -7,7 +7,8 @@ import io.github.komdosh.alarms.services.AlarmService
 
 class AlarmDisable : AnAction("AlarmDisable") {
     override fun actionPerformed(event: AnActionEvent) {
+        val p = event.project
         val alarmService = ServiceManager.getService(AlarmService::class.java)
-        alarmService.disableAlerts()
+        alarmService.disableAlerts(p!!)
     }
 }

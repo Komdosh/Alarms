@@ -11,6 +11,6 @@ class Alarm10Sec : AnAction("Alarm10Sec") {
         val p = event.project
 
         val alarmService = ServiceManager.getService(AlarmService::class.java)
-        alarmService.setAlertInSeconds(p!!, TimeUnit.SECONDS.toSeconds(10), "minutes")
+        alarmService.setAlertInSeconds(p!!, TimeUnit.SECONDS.toSeconds(10), "seconds")
     }
 }
