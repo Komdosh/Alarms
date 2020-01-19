@@ -8,9 +8,9 @@ import java.util.concurrent.TimeUnit
 
 class Alarm10Sec : AnAction("Alarm10Sec") {
     override fun actionPerformed(event: AnActionEvent) {
-        val p = event.project
-
-        val alarmService = ServiceManager.getService(AlarmService::class.java)
-        alarmService.setAlertInSeconds(p!!, TimeUnit.SECONDS.toSeconds(10), "seconds")
+        event.project?.let{
+            val alarmService = ServiceManager.getService(AlarmService::class.java)
+            alarmService.setAlertInSeconds(it, TimeUnit.SECONDS, 10)
+        }
     }
 }

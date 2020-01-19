@@ -9,22 +9,22 @@ import java.util.concurrent.TimeUnit
 
 class AlarmCustomMin : AnAction("AlarmCustomMin") {
     override fun actionPerformed(event: AnActionEvent) {
-        val p = event.project
-        val s = Messages.showInputDialog(p, "Set scheduler minutes delay for alarm",
-                "Alarm Set Custom Delay", Messages.getInformationIcon())
+        event.project?.let {
+            val minutesString = Messages.showInputDialog(it, "Set scheduler minutes delay for alarm",
+                    "Alarm Set Custom Delay", Messages.getInformationIcon())
 
-        try {
-            if (s == null) {
-                throw NumberFormatException("String is null")
+            try {
+                if (minutesString.isNullOrBlank()) {
+                    throw NumberFormatException("String couldn't be blank or null")
+                }
+                val minutes = Integer.parseInt(minutesString)
+
+                val alarmService = ServiceManager.getService(AlarmService::class.java)
+                alarmService.setAlertInSeconds(it, TimeUnit.MINUTES, minutes.toLong())
+            } catch (e: NumberFormatException) {
+                Messages.showMessageDialog(it, "Wrong number of minutes",
+                        "Alarm Is Not Set", Messages.getErrorIcon())
             }
-            val minutes = Integer.parseInt(s)
-
-            val alarmService = ServiceManager.getService(AlarmService::class.java)
-            alarmService.setAlertInSeconds(p!!, TimeUnit.MINUTES.toSeconds(minutes.toLong()), "minutes")
-        } catch (e: NumberFormatException) {
-            Messages.showMessageDialog(p, "Wrong number of minutes",
-                    "Alarm Is Not Set", Messages.getErrorIcon())
         }
-
     }
 }
